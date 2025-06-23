@@ -53,6 +53,7 @@ jobs:
       id: strings
       shell: bash
       run: |
+        cd HelloWorldCMake
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
