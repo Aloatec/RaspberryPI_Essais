@@ -53,15 +53,13 @@ jobs:
       id: strings
       shell: bash
       run: |
-        cd HelloWorldCMake
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/HelloWorldCMake/build" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
-        cd HelloWorldCMake
-        cmake -B /home/runner/work/RaspberryPI_Essais/RaspberryPI_Essais/build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release -S /home/runner/work/RaspberryPI_Essais/RaspberryPI_Essais
+        cmake -B /home/runner/work/RaspberryPI_Essais/RaspberryPI_Essais/HelloWorldCMake/build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Release -S /home/runner/work/RaspberryPI_Essais/RaspberryPI_Essais/HelloWorldCMake
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
