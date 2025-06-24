@@ -11,11 +11,18 @@ endif()
 
 project ("HelloWorldCMake")
 
+set(VCPKG_FEATURE_FLAGS "manifests")
+
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (HelloWorldCMake "HelloWorldCMake.cpp" "HelloWorldCMake.h")
+add_executable (HelloWorldCMake "HelloWorldCMake.cpp" "HelloWorldCMake.h" "HelloWorld3.cpp" "HelloWorld2.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HelloWorldCMake PROPERTY CXX_STANDARD 20)
 endif()
+
+find_package(plog CONFIG REQUIRED)
+target_link_libraries(HelloWorldCMake PRIVATE plog::plog)
+
+
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.

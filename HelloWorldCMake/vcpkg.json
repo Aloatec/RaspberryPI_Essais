@@ -1,0 +1,7 @@
+{
+  "name": "mon-projet",
+  "version": "0.1.0",
+  "dependencies": [
+    "plog"
+  ]
+}

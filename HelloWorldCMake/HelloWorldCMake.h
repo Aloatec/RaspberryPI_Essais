@@ -4,5 +4,6 @@
 #pragma once
 
 #include <iostream>
+#include "HelloWorld2.h"
 
 // TODO: Référencez ici les en-têtes supplémentaires nécessaires à votre programme.

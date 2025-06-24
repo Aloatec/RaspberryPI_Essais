@@ -1,0 +1,22 @@
+{
+  "default-registry": {
+    "kind": "git",
+    "baseline": "189fcdcb953b871d206ffada6db047496fc3f496",
+    "repository": "https://github.com/microsoft/vcpkg"
+  },
+  "registries": [
+    {
+      "kind": "artifact",
+      "location": "https://github.com/microsoft/vcpkg-ce-catalog/archive/refs/heads/main.zip",
+      "name": "microsoft"
+    },
+    {
+      "kind": "git",
+      "baseline": "2e53c475fba3806fb57c68f8796a2f9393abc1ec",
+      "repository": "https://github.com/Aloatec/vcpkg-registry",
+      "packages": [
+        "alib-*"
+      ]
+    }
+  ]
+}
