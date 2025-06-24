@@ -1,7 +1,7 @@
 ﻿# CMakeList.txt : projet CMake pour HelloWorldCMake, incluez la source et définissez
 # la logique spécifique au projet ici.
 #
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.21)
 
 # Activez Rechargement à chaud pour les compilateurs MSVC si cela est pris en charge.
 if (POLICY CMP0141)
@@ -32,3 +32,6 @@ add_executable(tests
 	tests/hello_world_test.cpp)
 target_link_libraries(tests PRIVATE Boost::unit_test_framework)
 
+# (optionnel) Pour CTest
+enable_testing()
+add_test(NAME mon_test COMMAND tests)
