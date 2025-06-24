@@ -24,5 +24,12 @@ find_package(plog CONFIG REQUIRED)
 target_link_libraries(HelloWorldCMake PRIVATE plog::plog)
 
 
-
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
+
+find_package(Catch2 CONFIG REQUIRED)
+add_executable(tests HelloWorld_test.cpp)
+target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+
+include(CTest)
+include(Catch)
+catch_discover_tests(tests)
