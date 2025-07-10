@@ -14,7 +14,23 @@ project ("HelloWorldCMake")
 set(VCPKG_FEATURE_FLAGS "manifests")
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (HelloWorldCMake "HelloWorldCMake.cpp" "HelloWorldCMake.h" "HelloWorld3.cpp" "HelloWorld2.h")
+add_library(HelloWorldLib SHARED "HelloWorld3.cpp" "HelloWorld2.h")
+
+target_include_directories(HelloWorldLib
+    PUBLIC "HelloWorld2.h"
+)
+option(BUILD_FMT_DLL "Build FMT as a DLL (export symbols)" ON)
+
+ if(BUILD_FMT_DLL)
+    target_compile_definitions(HelloWorldLib PRIVATE FMT_LIB_EXPORT)
+else()
+    target_compile_definitions(HelloWorldLib PRIVATE FMT_SHARED)
+endif()
+
+
+add_executable (HelloWorldCMake "HelloWorldCMake.cpp" "HelloWorldCMake.h"  "pch.h")
+
+target_link_libraries(HelloWorldCMake PRIVATE HelloWorldLib)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HelloWorldCMake PROPERTY CXX_STANDARD 20)
@@ -32,6 +48,13 @@ add_executable(tests
 	tests/hello_world_test.cpp)
 target_link_libraries(tests PRIVATE Boost::unit_test_framework)
 
-# (optionnel) Pour CTest
+target_precompile_headers(HelloWorldCMake PRIVATE pch.h)
+
 enable_testing()
-add_test(NAME mon_test COMMAND tests)
+
+include(CTest)
+
+set_property(TARGET tests PROPERTY FOLDER "tests")
+set_property(TARGET tests PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+
+add_test(NAME boost_unit_tests COMMAND tests --catch_system_errors=yes --log_level=all)
