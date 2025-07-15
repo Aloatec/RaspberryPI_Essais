@@ -41,7 +41,7 @@ int test()
 
 void create_log()
 {
-	
+	 
 } 
 
 int MYLIBRARY_API addition(int x1, int x2)

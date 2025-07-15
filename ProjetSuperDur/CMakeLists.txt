@@ -23,3 +23,25 @@ add_subdirectory ("BoostPython")
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
+set(CPPCHECK_DIRS
+    ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll
+    ${CMAKE_SOURCE_DIR}/ProjetSuperDurApp
+    ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest
+    ${CMAKE_SOURCE_DIR}/BoostPython
+    ${CMAKE_SOURCE_DIR}/BoostApplication
+)
+
+# Création de la cible "run-cppcheck"
+add_custom_target(run-cppcheck ALL
+    COMMAND cppcheck
+        --enable=style
+        --inconclusive
+        --std=c++20
+        --force
+        --suppress=missingInclude
+        --suppress=missingIncludeSystem
+        --quiet
+        ${CPPCHECK_DIRS}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Analyse statique avec cppcheck sur tous les sous-projets"
+)

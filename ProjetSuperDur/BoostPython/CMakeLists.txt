@@ -31,6 +31,15 @@ find_package(boost_python REQUIRED CONFIG)
 target_include_directories(BoostPython PRIVATE ${Python3_INCLUDE_DIRS})
 target_link_libraries(BoostPython PRIVATE Boost::python Python3::Python)
 
+add_custom_command(TARGET BoostPython POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
+    COMMAND ${CMAKE_COMMAND} -E make_directory
+        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/BoostPython/scripts
+        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
+)
+
 if(WIN32)
 
     add_custom_command(TARGET BoostPython POST_BUILD
@@ -43,11 +52,3 @@ if(WIN32)
     COMMAND_EXPAND_LISTS)
 
 endif()
-
-add_custom_command(TARGET BoostPython POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/BoostPython/scripts
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
-)
