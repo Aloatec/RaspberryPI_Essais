@@ -53,7 +53,9 @@ jobs:
 
     - name: Install dependencies (Linux only)
       if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y \
+      run: |
+        sudo apt-get update
+        sudo apt-get update && sudo apt-get install -y \
         ninja-build g++ curl zip unzip tar \
         autoconf automake libtool m4 pkg-config \
         libffi-dev libbz2-dev liblzma-dev libncurses5-dev \
