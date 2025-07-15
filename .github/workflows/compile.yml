@@ -53,19 +53,11 @@ jobs:
 
     - name: Install dependencies (Linux only)
       if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y ninja-build g++ curl zip unzip tar
-
-    - name: Install cppcheck (Linux)
-      if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y cppcheck
+      run: sudo apt-get update && sudo apt-get install -y ninja-build g++ curl zip unzip tar autoconf automake libtool m4 pkg-config ninja-build cppcheck
 
     - name: Installer cppcheck
       if: runner.os == 'Windows'
       run: choco install -y cppcheck
-
-    - name: Show PATH
-      run: echo $Env:PATH
-      shell: powershell
 
     - name: Clone vcpkg
       run: |
