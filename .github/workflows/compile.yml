@@ -53,7 +53,11 @@ jobs:
 
     - name: Install dependencies (Linux only)
       if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y ninja-build g++ curl zip unzip tar autoconf automake libtool m4 pkg-config ninja-build cppcheck build-essential
+      run: sudo apt-get update && sudo apt-get install -y \
+        ninja-build g++ curl zip unzip tar \
+        autoconf automake libtool m4 pkg-config \
+        libffi-dev libbz2-dev liblzma-dev libncurses5-dev \
+        libreadline-dev libsqlite3-dev zlib1g-dev libssl-dev
 
     - name: Installer cppcheck
       if: runner.os == 'Windows'
@@ -65,8 +69,8 @@ jobs:
         ${{ steps.strings.outputs.vcpkg-dir }}/bootstrap-vcpkg.sh
 
     - name: Configure CMake
+      if: runner.os == 'Linux'
       run: |
-        if [ "$RUNNER_OS" = "Linux" ]; then
           cmake -B "${{ steps.strings.outputs.build-output-dir }}" \
             -S "${{ github.workspace }}/ProjetSuperDur" \
             -G Ninja \
@@ -75,14 +79,16 @@ jobs:
             -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
             -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
             -DCMAKE_MAKE_PROGRAM=$(which ninja)
-        else
+            
+    - name: Configure CMake
+      if: runner.os == 'Windows'
+      run: |
           cmake -B "${{ steps.strings.outputs.build-output-dir }}" \
             -S "${{ github.workspace }}/ProjetSuperDur" \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.vcpkg-dir }}/scripts/buildsystems/vcpkg.cmake \
             -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
             -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
-        fi
         
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
