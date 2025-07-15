@@ -55,6 +55,14 @@ jobs:
       if: runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install -y ninja-build g++ curl zip unzip tar
 
+    - name: Install cppcheck (Linux)
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install -y cppcheck
+
+    - name: Installer cppcheck
+      if: runner.os == 'Windows'
+      run: choco install -y cppcheck
+
     - name: Clone vcpkg
       run: |
         git clone https://github.com/microsoft/vcpkg.git ${{ steps.strings.outputs.vcpkg-dir }}
