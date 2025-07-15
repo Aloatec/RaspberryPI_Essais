@@ -2,9 +2,9 @@
   "name": "projet-super-dur",
   "version": "0.1.0",
   "dependencies": [
-    "plog",
     "boost-test",
     "boost-locale",
-    "boost-log"
+    "boost-log",
+    "boost-python"
   ]
 }

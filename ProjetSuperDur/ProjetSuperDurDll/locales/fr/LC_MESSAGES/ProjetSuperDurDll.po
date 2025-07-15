@@ -20,3 +20,9 @@ msgid "{1} file"
 msgid_plural "{1} files"
 msgstr[0] "{1} fichier"
 msgstr[1] "{1} fichiers"
+
+msgid "test"
+msgstr ""
+
+msgid "truc"
+msgstr ""

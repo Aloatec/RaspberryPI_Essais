@@ -6,10 +6,15 @@
 add_executable (ProjetSuperDurApp "src/ProjetSuperDur.cpp" "src/ProjetSuperDur.h")
 
 add_dependencies(ProjetSuperDurApp ProjetSuperDurDll)
+add_dependencies(ProjetSuperDurApp BoostPython)
 
 # Ajoute l'inclusion des headers de la DLL
 target_include_directories(ProjetSuperDurApp PRIVATE
     ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll/include
+)
+
+target_include_directories(ProjetSuperDurApp PRIVATE
+    ${CMAKE_SOURCE_DIR}/BoostPython/include
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.21)
@@ -17,6 +22,7 @@ if (CMAKE_VERSION VERSION_GREATER 3.21)
 endif()
 
 target_link_libraries(ProjetSuperDurApp PRIVATE ProjetSuperDurDll)
+target_link_libraries(ProjetSuperDurApp PRIVATE BoostPython)
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
 

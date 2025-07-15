@@ -5,5 +5,6 @@
 
 #include <iostream>
 #include "ProjetSuperDurDll.h"
+#include "BoostPython.h"
 
 // TODO: Référencez ici les en-têtes supplémentaires nécessaires à votre programme.

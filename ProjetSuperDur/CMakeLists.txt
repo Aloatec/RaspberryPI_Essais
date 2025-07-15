@@ -18,3 +18,8 @@ add_compile_definitions()
 add_subdirectory ("ProjetSuperDurDll")
 add_subdirectory ("ProjetSuperDurApp")
 add_subdirectory ("ProjetSuperDurTest")
+add_subdirectory ("BoostPython")
+
+set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
+set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+

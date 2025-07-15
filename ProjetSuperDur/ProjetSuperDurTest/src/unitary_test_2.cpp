@@ -11,7 +11,7 @@ namespace test2
     }
 
     BOOST_AUTO_TEST_CASE(multiplication) {
-        BOOST_CHECK_EQUAL(addition(7, 6), 13);
+        BOOST_CHECK_EQUAL(addition(7, 7), 13);
     }
 
     BOOST_AUTO_TEST_SUITE_END()

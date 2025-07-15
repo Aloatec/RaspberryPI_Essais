@@ -70,18 +70,24 @@ int main()
 	test();
 	//create_log();
 
-    init_logging();
+
+    python_run();
+
+    //init_logging();
+
+
+
 
     // Création de loggers avec un channel
-    src::channel_logger<> loggerA(keywords::channel = to_channel(Com::A));
-    src::channel_logger<> loggerB(keywords::channel = to_channel(Com::B));
+    /*src::channel_logger<> loggerA(keywords::channel = to_channel(Com::A));
+    src::channel_logger<> loggerB(keywords::channel = to_channel(Com::B));*/
 
-    while(true)
-    {
-        BOOST_LOG(loggerA) << "Log dans A";
-        BOOST_LOG(loggerB) << "Log dans B";
-        Sleep(1000); // Pause de 1 seconde
-    }
+    //while(true)
+    //{
+    //    BOOST_LOG(loggerA) << "Log dans A";
+    //    BOOST_LOG(loggerB) << "Log dans B";
+    //    Sleep(1000); // Pause de 1 seconde
+    //}
 
 
 	return 0;

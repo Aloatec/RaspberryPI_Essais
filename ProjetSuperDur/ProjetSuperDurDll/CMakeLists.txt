@@ -23,11 +23,9 @@ endif()
 
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
 
-find_package(plog CONFIG REQUIRED)
-target_link_libraries(ProjetSuperDurDll PRIVATE plog::plog)
-
 find_package(boost_locale REQUIRED CONFIG)
 target_link_libraries(ProjetSuperDurDll PRIVATE Boost::locale)
+
 
 if(WIN32)
 
@@ -38,6 +36,19 @@ if(WIN32)
     COMMAND ${CMAKE_COMMAND} -E copy 
     $<TARGET_RUNTIME_DLLS:ProjetSuperDurDll> 
     $<TARGET_FILE_DIR:ProjetSuperDurApp>
+    COMMAND_EXPAND_LISTS)
+
+endif()
+
+if(WIN32)
+
+    add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy 
+    $<TARGET_FILE:ProjetSuperDurDll> 
+    $<TARGET_FILE_DIR:ProjetSuperDurTest>
+    COMMAND ${CMAKE_COMMAND} -E copy 
+    $<TARGET_RUNTIME_DLLS:ProjetSuperDurDll> 
+    $<TARGET_FILE_DIR:ProjetSuperDurTest>
     COMMAND_EXPAND_LISTS)
 
 endif()

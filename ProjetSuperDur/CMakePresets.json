@@ -65,6 +65,7 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       },
+      "toolchainFile": "$env{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
