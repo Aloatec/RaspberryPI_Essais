@@ -63,6 +63,10 @@ jobs:
       if: runner.os == 'Windows'
       run: choco install -y cppcheck
 
+    - name: Show PATH
+      run: echo $Env:PATH
+      shell: powershell
+
     - name: Clone vcpkg
       run: |
         git clone https://github.com/microsoft/vcpkg.git ${{ steps.strings.outputs.vcpkg-dir }}
