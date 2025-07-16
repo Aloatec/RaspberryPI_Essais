@@ -24,6 +24,8 @@ int test()
     cout.imbue(locale());
 
 
+
+
     // Test traduction simple
     std::cout << translate("Hello") << std::endl;
 
