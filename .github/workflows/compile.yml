@@ -59,7 +59,7 @@ jobs:
         ninja-build g++ curl zip unzip tar \
         autoconf automake libtool m4 pkg-config \
         libffi-dev libbz2-dev liblzma-dev libncurses5-dev \
-        libreadline-dev libsqlite3-dev zlib1g-dev libssl-dev
+        libreadline-dev libsqlite3-dev zlib1g-dev libssl-dev gettext
 
     - name: Installer cppcheck
       if: runner.os == 'Windows'
