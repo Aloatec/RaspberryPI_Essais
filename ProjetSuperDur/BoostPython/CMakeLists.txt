@@ -52,7 +52,7 @@ add_custom_command(
   COMMENT "Clang-format BoostPython"
 )
 
-add_custom_target(run-clang-format-a
+add_custom_target(run-clang-format-boost-python
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
 )
 

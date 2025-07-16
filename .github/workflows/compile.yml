@@ -64,6 +64,10 @@ jobs:
     - name: Installer Clang-tidy
       if: runner.os == 'Windows'
       run: choco install -y llvm
+        
+    - name: Set up MSVC environment
+    if: runner.os == 'Windows'
+    uses: ilammy/msvc-dev-cmd@v1
 
     - name: Clone vcpkg
       run: |

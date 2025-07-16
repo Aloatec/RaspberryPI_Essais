@@ -28,3 +28,21 @@ target_link_libraries(ProjetSuperDurApp PRIVATE BoostPython)
 
 find_package(boost_log REQUIRED CONFIG)
 target_link_libraries(ProjetSuperDurApp PRIVATE Boost::log)
+
+file(GLOB_RECURSE PROJ_A_SOURCES
+  CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+)
+
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  COMMAND ${CLANG_FORMAT_EXE} -i -style=Microsoft ${PROJ_A_SOURCES}
+  COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  DEPENDS ${PROJ_A_SOURCES}
+  COMMENT "Clang-format App"
+)
+
+add_custom_target(run-clang-format-projet-super-dur-app
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+)

@@ -34,7 +34,24 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 target_link_libraries(ProjetSuperDurTest PRIVATE Boost::unit_test_framework)
 
 enable_testing()
-
-
 include(CTest)
+
+file(GLOB_RECURSE PROJ_A_SOURCES
+  CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+)
+
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  COMMAND ${CLANG_FORMAT_EXE} -i -style=Microsoft ${PROJ_A_SOURCES}
+  COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  DEPENDS ${PROJ_A_SOURCES}
+  COMMENT "Clang-format test"
+)
+
+add_custom_target(run-clang-format-projet-super-dur-test
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+)
+
 

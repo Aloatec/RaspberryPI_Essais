@@ -30,7 +30,10 @@ add_subdirectory ("BoostPython")
 
 # Cible globale pour lancer tous les formats
 add_custom_target(run-clang-format-all
-  DEPENDS run-clang-format-a 
+  DEPENDS run-clang-format-boost-python 
+          run-clang-format-projet-super-dur-dll
+          run-clang-format-projet-super-dur-app
+          run-clang-format-projet-super-dur-test
 )
 
 

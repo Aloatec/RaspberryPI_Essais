@@ -23,8 +23,6 @@ void init_logging()
 {
     logging::add_common_attributes();
 
-
-
     // Sink pour moduleA
     auto sinkA = boost::make_shared<sinks::synchronous_sink<sinks::text_file_backend>>(
         keywords::file_name = "moduleA.log", keywords::target_file_name = "moduleA%Y%m%d_%H%M%S_%5N.log");
@@ -56,8 +54,7 @@ enum class Com
     B
 };
 
-
-inline const char *to_channel(Com m) 
+inline const char *to_channel(Com m)
 {
     switch (m)
     {
