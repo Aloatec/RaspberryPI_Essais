@@ -28,6 +28,10 @@ add_subdirectory ("ProjetSuperDurApp")
 add_subdirectory ("ProjetSuperDurTest")
 add_subdirectory ("BoostPython")
 
+# Cible globale pour lancer tous les formats
+add_custom_target(run-clang-format-all
+  DEPENDS run-clang-format-a 
+)
 
 
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")

@@ -31,6 +31,31 @@ find_package(boost_python REQUIRED CONFIG COMPONENTS python311)
 target_include_directories(BoostPython PRIVATE ${Python3_INCLUDE_DIRS})
 target_link_libraries(BoostPython PRIVATE Boost::python Python3::Python)
 
+
+find_program(CLANG_FORMAT_EXE clang-format)
+
+if(NOT CLANG_FORMAT_EXE)
+  message(FATAL_ERROR "clang-format not found")
+endif()
+
+file(GLOB_RECURSE PROJ_A_SOURCES
+  CONFIGURE_DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+)
+
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  COMMAND ${CLANG_FORMAT_EXE} -i -style=Microsoft ${PROJ_A_SOURCES}
+  COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+  DEPENDS ${PROJ_A_SOURCES}
+  COMMENT "Clang-format BoostPython"
+)
+
+add_custom_target(run-clang-format-a
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
+)
+
 add_custom_command(TARGET BoostPython POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
     COMMAND ${CMAKE_COMMAND} -E make_directory
