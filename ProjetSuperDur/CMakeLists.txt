@@ -16,10 +16,10 @@ add_compile_definitions()
 
 if(MSVC)
     add_compile_options(/EHsc)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*;-extra-arg=/EHsc")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*;-extra-arg=/EHsc;-header-filter=^(?!.*vcpkg_installed).*$")
 else()
     add_compile_options(-fexceptions)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*;-extra-arg=/EHsc")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*;-extra-arg=/fexceptions;-header-filter=^(?!.*vcpkg_installed).*$")
 endif()
 
 # Incluez les sous-projets.

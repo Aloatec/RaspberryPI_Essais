@@ -26,7 +26,7 @@ endif()
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-find_package(boost_python REQUIRED CONFIG)
+find_package(boost_python REQUIRED CONFIG COMPONENTS python311)
 
 target_include_directories(BoostPython PRIVATE ${Python3_INCLUDE_DIRS})
 target_link_libraries(BoostPython PRIVATE Boost::python Python3::Python)

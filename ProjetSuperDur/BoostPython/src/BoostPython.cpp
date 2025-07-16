@@ -35,7 +35,7 @@ void python_run()
             std::cout << " - " << k << std::endl;
         }
 
-        if (global.contains("faire_truc") != nullptr)
+        if (extract<bool>(global.contains("faire_truc")))
         {
             object f = global["faire_truc"];
             int result = extract<int>(f(10, 20));
@@ -46,7 +46,7 @@ void python_run()
             std::cerr << "[C++] 'faire_truc' introuvable dans le namespace Python\n";
         }
 
-        if (global.contains("Calculatrice") != nullptr)
+        if (extract<bool>(global.contains("Calculatrice")))
         {
             object py_class = global["Calculatrice"];
             object instance = py_class(10);
