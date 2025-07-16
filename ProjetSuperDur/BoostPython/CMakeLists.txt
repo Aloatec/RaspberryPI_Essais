@@ -26,10 +26,10 @@ endif()
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-find_package(boost_python REQUIRED CONFIG COMPONENTS python311)
+find_package(boost-python REQUIRED CONFIG)
 
 target_include_directories(BoostPython PRIVATE ${Python3_INCLUDE_DIRS})
-target_link_libraries(BoostPython PRIVATE Boost::python Python3::Python)
+target_link_libraries(BoostPython PRIVATE Boost::python311 Python3::Python)
 
 
 find_program(CLANG_FORMAT_EXE clang-format)

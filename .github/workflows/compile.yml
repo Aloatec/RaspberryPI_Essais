@@ -94,3 +94,11 @@ jobs:
       # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
+      
+    - name: Dump CMake logs if configuration fails (Linux)
+      if: failure()
+      run: |
+        echo "====== CMakeError.log ======"
+        cat ProjetSuperDur/build/CMakeFiles/CMakeError.log || echo "No error log"
+        echo "====== CMakeOutput.log ======"
+        cat ProjetSuperDur/build/CMakeFiles/CMakeOutput.log || echo "No output log"
