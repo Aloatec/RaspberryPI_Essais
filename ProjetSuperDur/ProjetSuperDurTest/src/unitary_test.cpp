@@ -13,5 +13,6 @@ namespace test
         BOOST_CHECK_EQUAL(2 * 4, 4);
     }
 
+
     BOOST_AUTO_TEST_SUITE_END()
 }

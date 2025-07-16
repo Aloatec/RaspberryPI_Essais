@@ -11,6 +11,7 @@
 #include <boost/log/utility/setup.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/log/support/date_time.hpp>
+#include "BoostPython.h"
 
 
 namespace logging = boost::log;

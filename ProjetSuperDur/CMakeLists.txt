@@ -31,6 +31,16 @@ set(CPPCHECK_DIRS
     ${CMAKE_SOURCE_DIR}/BoostApplication
 )
 
+file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.hpp)
+
+add_custom_target(
+  format
+  COMMAND clang-format -i ${ALL_SOURCE_FILES}
+  WORKING_DIRECTORY ${CPPCHECK_DIRS}
+)
+
+find_program(CLANG_FORMAT_EXE clang-format)
+
 # Création de la cible "run-cppcheck"
 add_custom_target(run-cppcheck ALL
     COMMAND cppcheck
