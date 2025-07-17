@@ -2,6 +2,7 @@
 //
 
 #include "ProjetSuperDur.h"
+#include "pch.h"
 #include "BoostPython.h"
 #include <boost/log/expressions.hpp>
 #include <boost/log/sinks/text_file_backend.hpp>
