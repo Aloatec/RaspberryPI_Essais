@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(Math_AdditionFonctionne)
 
 BOOST_AUTO_TEST_CASE(multiplication)
 {
-    BOOST_CHECK_EQUAL(addition(7, 7), 13);
+    BOOST_CHECK_EQUAL(addition(7, 7), 14);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
