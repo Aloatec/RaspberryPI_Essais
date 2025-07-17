@@ -32,7 +32,7 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 target_link_libraries(ProjetSuperDurTest PRIVATE Boost::unit_test_framework)
 
 add_test(NAME MesTests 
-        COMMAND ProjetSuperDurTest --log_level=all --report_level=detailed)
+        COMMAND ProjetSuperDurTest --report_level=short --log_level=warning )
 
 file(GLOB_RECURSE PROJ_A_SOURCES
   CONFIGURE_DEPENDS
