@@ -67,8 +67,7 @@ inline const char *to_channel(Com m)
     }
 }
 
-int main()
-{
+int main(){
     cout << "Hello CMake." << endl;
 
     test();
