@@ -51,6 +51,19 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/ProjetSuperDur/build" >> "$GITHUB_OUTPUT"
         echo "vcpkg-dir=${{ github.workspace }}/vcpkg" >> "$GITHUB_OUTPUT"
 
+    - name: Clang-Format check
+      if: runner.os == 'Linux'
+      run: |
+        find ProjetSuperDur -type f \( -name "*.cpp" -o -name "*.hpp" \) | \
+        xargs clang-format --dry-run --Werror -style=Microsoft
+
+    - name: Clang-Format check
+      if: runner.os == 'Windows'
+      run: |
+        Get-ChildItem -Recurse -Include *.cpp,*.hpp -Path ProjetSuperDur | `
+        ForEach-Object { & clang-format --dry-run --Werror -style=Microsoft $_.FullName }
+      shell: pwsh
+
     - name: Install dependencies (Linux only)
       if: runner.os == 'Linux'
       run: |
