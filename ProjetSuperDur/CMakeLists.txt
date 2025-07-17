@@ -43,6 +43,8 @@ add_custom_target(run-clang-format-all
 )
 
 
+enable_testing()
+
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
