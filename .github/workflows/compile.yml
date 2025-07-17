@@ -60,6 +60,7 @@ jobs:
     - name: Clang-Format check
       if: runner.os == 'Windows'
       run: |
+        $ErrorActionPreference = "Stop"
         Get-ChildItem -Recurse -Include *.cpp,*.hpp -Path ProjetSuperDur | `
         ForEach-Object { & clang-format --dry-run --Werror -style=Microsoft $_.FullName }
       shell: pwsh
