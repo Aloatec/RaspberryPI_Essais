@@ -1,4 +1,3 @@
-#include "pch.h"
 #include <ProjetSuperDurDll.h>
 #include <boost/test/unit_test.hpp>
 
