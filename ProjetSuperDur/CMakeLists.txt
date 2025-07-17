@@ -22,6 +22,12 @@ else()
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*;-extra-arg=-fexceptions;-header-filter=^(?!.*vcpkg_installed).*$")
 endif()
 
+if(CMAKE_CXX_CLANG_TIDY AND UNIX)
+  message(STATUS "Désactivation des PCH sur Unix quand Clang-Tidy est actif")
+  set(CMAKE_DISABLE_PRECOMPILE_HEADERS ON)
+endif()
+
+
 # Incluez les sous-projets.
 add_subdirectory ("ProjetSuperDurDll")
 add_subdirectory ("ProjetSuperDurApp")

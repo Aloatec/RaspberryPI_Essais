@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(Math_AdditionFonctionne)
     BOOST_CHECK_EQUAL(2 + 6, 8);
 }
 
-BOOST_AUTO_TEST_CASE(multiplication)
+BOOST_AUTO_TEST_CASE(multiplication2)
 {
     BOOST_CHECK_EQUAL(addition(7, 7), 14);
 }
