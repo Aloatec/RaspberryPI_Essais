@@ -9,9 +9,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_executable (ProjetSuperDurTest
     "src/main.cpp" 
-    "src/unitary_test.cpp" "src/unitary_test_2.cpp" "src/pch.cpp" "src/pch.h")
-
-target_precompile_headers(ProjetSuperDurTest PRIVATE src/pch.h)
+    "src/unitary_test.cpp" "src/unitary_test_2.cpp")
 
 target_include_directories(ProjetSuperDurTest PRIVATE
     ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll/include
@@ -33,8 +31,7 @@ endif()
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 target_link_libraries(ProjetSuperDurTest PRIVATE Boost::unit_test_framework)
 
-enable_testing()
-include(CTest)
+add_test(NAME MesTests COMMAND ProjetSuperDurTest)
 
 file(GLOB_RECURSE PROJ_A_SOURCES
   CONFIGURE_DEPENDS

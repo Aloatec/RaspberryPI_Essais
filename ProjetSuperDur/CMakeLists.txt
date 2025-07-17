@@ -9,6 +9,8 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
+find_program(CLANG_FORMAT_EXE NAMES clang-format)
+
 project ("ProjetSuperDur")
 set(VCPKG_FEATURE_FLAGS "manifests")
 
@@ -47,6 +49,7 @@ enable_testing()
 
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+
 
 #set(CPPCHECK_DIRS
 #    ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll
