@@ -14,6 +14,7 @@ void python_run()
         object main_module = import("__main__");
         dict global = extract<boost::python::dict>(main_module.attr("__dict__"));
 
+
         exec("import sys; sys.path.append('.\\scripts')", global);
 
         exec("hello = open('hello.txt', 'w')\n"

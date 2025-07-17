@@ -99,6 +99,6 @@ jobs:
       if: failure()
       run: |
         echo "====== CMakeError.log ======"
-        cat ProjetSuperDur/build/CMakeFiles/CMakeError.log || echo "No error log"
+        cat ProjetSuperDur/out/build/CMakeFiles/CMakeError.log || echo "No error log"
         echo "====== CMakeOutput.log ======"
         cat ProjetSuperDur/build/CMakeFiles/CMakeOutput.log || echo "No output log"
