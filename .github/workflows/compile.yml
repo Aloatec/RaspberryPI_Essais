@@ -60,9 +60,14 @@ jobs:
     - name: Clang-Format check
       if: runner.os == 'Windows'
       run: |
-        $ErrorActionPreference = "Stop"
-        Get-ChildItem -Recurse -Include *.cpp,*.hpp -Path ProjetSuperDur | `
-        ForEach-Object { & clang-format --dry-run --Werror -style=Microsoft $_.FullName }
+        $files = Get-ChildItem -Recurse -Include *.cpp,*.hpp -Path ProjetSuperDur
+        foreach ($file in $files) {
+          clang-format --dry-run --Werror -style=Microsoft $file.FullName
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "clang-format failed on $($file.FullName)"
+          exit 1
+          }
+        }
       shell: pwsh
 
     - name: Install dependencies (Linux only)
