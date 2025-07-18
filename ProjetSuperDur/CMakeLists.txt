@@ -32,10 +32,12 @@ endif()
 enable_testing()
 
 # Incluez les sous-projets.
-add_subdirectory ("ProjetSuperDurDll")
-add_subdirectory ("ProjetSuperDurApp")
 add_subdirectory ("ProjetSuperDurTest")
+add_subdirectory ("ProjetSuperDurApp")
+add_subdirectory ("ProjetSuperDurDll")
 add_subdirectory ("BoostPython")
+
+add_dependencies(ProjetSuperDurTest ProjetSuperDurDll)
 
 # Cible globale pour lancer tous les formats
 add_custom_target(run-clang-format-all
