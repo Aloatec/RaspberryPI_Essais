@@ -133,7 +133,7 @@ jobs:
     - name: Dump CMake logs if configuration fails (Linux)
       if: failure()
       run: |
-        echo "====== CMakeError.log ======"
-        cat ProjetSuperDur/out/build/CMakeFiles/CMakeError.log || echo "No error log"
+        echo "====== vcpkg.log ======"
+        cat D:\a\RaspberryPI_Essais\RaspberryPI_Essais\ProjetSuperDur\build\vcpkg-bootstrap.log || echo "No error log"
         echo "====== CMakeOutput.log ======"
         cat ProjetSuperDur/build/CMakeFiles/CMakeOutput.log || echo "No output log"
