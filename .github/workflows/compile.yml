@@ -24,21 +24,48 @@ jobs:
       #
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        build_type: [Release]
-        c_compiler: [gcc, cl]
         include:
           - os: windows-latest
             c_compiler: cl
             cpp_compiler: cl
+            generator: "Visual Studio 17 2022"
+            architecture: x64
+            build_type: Debug
+            
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            generator: "Visual Studio 17 2022"
+            architecture: x86
+            build_type: Debug
+            
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            generator: "Visual Studio 17 2022"
+            architecture: x64
+            build_type: Release
+
+          - os: windows-latest
+            c_compiler: cl
+            cpp_compiler: cl
+            generator: "Visual Studio 17 2022"
+            architecture: x86
+            build_type: Release
+
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
-        exclude:
-          - os: windows-latest
-            c_compiler: gcc
+            generator: Ninja
+            architecture: x64
+            build_type: Debug
+
           - os: ubuntu-latest
-            c_compiler: cl
+            c_compiler: gcc
+            cpp_compiler: g++
+            generator: Ninja
+            architecture: x64
+            build_type: Release
 
     steps:
     - uses: actions/checkout@v4
@@ -95,11 +122,16 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git ${{ steps.strings.outputs.vcpkg-dir }}
         ${{ steps.strings.outputs.vcpkg-dir }}/bootstrap-vcpkg.sh
 
+    - name: Set CMake architecture flag (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: echo "CMAKE_ARCH=-A ${{ matrix.architecture }}" >> $GITHUB_ENV
+
     - name: Configure CMake
       run: >
         cmake -B "${{ steps.strings.outputs.build-output-dir }}"
         -S "${{ github.workspace }}/ProjetSuperDur"
-        -G Ninja
+        -G "${{ matrix.generator }}"
+        ${{ env.CMAKE_ARCH }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.vcpkg-dir }}/scripts/buildsystems/vcpkg.cmake
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
@@ -119,7 +151,7 @@ jobs:
     - name: Dump CMake logs if configuration fails (Linux)
       if: failure()
       run: |
-        echo "====== CMakeError.log ======"
-        cat ProjetSuperDur/out/build/CMakeFiles/CMakeError.log || echo "No error log"
+        echo "====== vcpkg.log ======"
+        cat D:\a\RaspberryPI_Essais\RaspberryPI_Essais\ProjetSuperDur\build\vcpkg-bootstrap.log || echo "No error log"
         echo "====== CMakeOutput.log ======"
         cat ProjetSuperDur/build/CMakeFiles/CMakeOutput.log || echo "No output log"
