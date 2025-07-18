@@ -48,15 +48,15 @@ void init_logging()
 
 using namespace std;
 
-enum class Com
+enum class Com : std::uint8_t
 {
     A,
     B
 };
 
-inline const char *to_channel(Com m)
+inline const char *to_channel(Com Communication)
 {
-    switch (m)
+    switch (Communication)
     {
     case Com::A:
         return "A";
@@ -69,13 +69,20 @@ inline const char *to_channel(Com m)
 
 int main()
 {
-    cout << "Hello CMake." << endl;
+    try
+    {
+        cout << "Hello CMake." << std::endl;
 
-    test();
-    // create_log();
+        test();
+        // create_log();
 
-    python_run();
-
+        python_run();
+        return 0;
+    }
+    catch (...)
+    {
+        return 1;
+    }
     // init_logging();
 
     // Création de loggers avec un channel
@@ -88,6 +95,4 @@ int main()
     //     BOOST_LOG(loggerB) << "Log dans B";
     //     Sleep(1000); // Pause de 1 seconde
     // }
-
-    return 0;
 }
