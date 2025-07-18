@@ -71,7 +71,7 @@ int main()
 {
     try
     {
-        cout << "Hello CMake." << std::endl;
+        cout << "Hello CMake." << '\n';
 
         test();
         // create_log();
