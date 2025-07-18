@@ -127,7 +127,7 @@ jobs:
         cmake -B "${{ steps.strings.outputs.build-output-dir }}"
         -S "${{ github.workspace }}/ProjetSuperDur"
         -G "${{ matrix.generator }}"
-        -A "${{ matrix.architecture }}"
+        ${{ env.CMAKE_ARCH }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.vcpkg-dir }}/scripts/buildsystems/vcpkg.cmake
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
