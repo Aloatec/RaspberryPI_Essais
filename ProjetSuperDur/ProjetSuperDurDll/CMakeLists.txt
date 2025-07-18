@@ -30,6 +30,7 @@ target_link_libraries(ProjetSuperDurDll PRIVATE Boost::locale)
 if(WIN32)
 
     add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
     COMMAND ${CMAKE_COMMAND} -E copy 
     $<TARGET_FILE:ProjetSuperDurDll> 
     $<TARGET_FILE_DIR:ProjetSuperDurApp>
@@ -72,6 +73,7 @@ add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
 if(WIN32)
 
     add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurTest>
     COMMAND ${CMAKE_COMMAND} -E copy 
     $<TARGET_FILE:ProjetSuperDurDll> 
     $<TARGET_FILE_DIR:ProjetSuperDurTest>

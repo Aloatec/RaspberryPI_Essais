@@ -68,6 +68,7 @@ add_custom_command(TARGET BoostPython POST_BUILD
 if(WIN32)
 
     add_custom_command(TARGET BoostPython POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>  # Création dossier si absent
     COMMAND ${CMAKE_COMMAND} -E copy 
     $<TARGET_FILE:BoostPython> 
     $<TARGET_FILE_DIR:ProjetSuperDurApp>
