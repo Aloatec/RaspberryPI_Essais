@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(addition)
 
 BOOST_AUTO_TEST_CASE(multiplication)
 {
-    BOOST_CHECK_EQUAL(2 * 4, 8);
+    BOOST_CHECK_EQUAL(2 * 5, 8);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
