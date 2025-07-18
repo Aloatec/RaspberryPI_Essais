@@ -26,25 +26,29 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            compiler: cl
+            c_compiler: cl
+            cpp_compiler: cl
             generator: "Visual Studio 17 2022"
             architecture: x86
             build_type: Debug
 
           - os: windows-latest
-            compiler: cl
+            c_compiler: cl
+            cpp_compiler: cl
             generator: "Visual Studio 17 2022"
             architecture: x64
             build_type: Release
 
           - os: ubuntu-latest
-            compiler: gcc
+            c_compiler: gcc
+            cpp_compiler: g++
             generator: Ninja
             architecture: x64
             build_type: Debug
 
           - os: ubuntu-latest
-            compiler: clang
+            c_compiler: gcc
+            cpp_compiler: g++
             generator: Ninja
             architecture: x64
             build_type: Release
