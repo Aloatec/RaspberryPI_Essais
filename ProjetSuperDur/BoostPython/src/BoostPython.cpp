@@ -27,6 +27,7 @@ void initialize_python(const wchar_t *python_home)
     }
 
     PyConfig_Clear(&config); // nettoyage
+
 }
 
 void python_run()

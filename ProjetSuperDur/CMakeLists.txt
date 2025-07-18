@@ -18,10 +18,10 @@ add_compile_definitions()
 
 if(MSVC)
     add_compile_options(/EHsc)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type, -warnings-as-errors=*;-extra-arg=/EHsc;-header-filter=^(?!.*vcpkg_installed).*$")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type;-warnings-as-errors=*;-extra-arg=-Qunused-arguments;-extra-arg=/EHsc;-header-filter=^(?!.*vcpkg_installed).*$")
 else()
     add_compile_options(-fexceptions)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type, -warnings-as-errors=*;-extra-arg=-fexceptions;-header-filter=^(?!.*vcpkg_installed).*$")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type;-warnings-as-errors=*;-extra-arg=-Qunused-arguments;-extra-arg=-fexceptions;-header-filter=^(?!.*vcpkg_installed).*$")
 endif()
 
 if(CMAKE_CXX_CLANG_TIDY AND UNIX)
