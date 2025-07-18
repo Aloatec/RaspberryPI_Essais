@@ -104,12 +104,16 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git ${{ steps.strings.outputs.vcpkg-dir }}
         ${{ steps.strings.outputs.vcpkg-dir }}/bootstrap-vcpkg.sh
 
+    - name: Set CMake architecture flag (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: echo "CMAKE_ARCH=-A ${{ matrix.architecture }}" >> $GITHUB_ENV
+
     - name: Configure CMake
       run: >
         cmake -B "${{ steps.strings.outputs.build-output-dir }}"
         -S "${{ github.workspace }}/ProjetSuperDur"
         -G "${{ matrix.generator }}"
-         ${{ matrix.os == 'windows-latest' && format('-A {0}', matrix.architecture) || '' }}
+        ${{ env.CMAKE_ARCH }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.vcpkg-dir }}/scripts/buildsystems/vcpkg.cmake
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
