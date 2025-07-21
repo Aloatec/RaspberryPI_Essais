@@ -120,7 +120,7 @@ jobs:
         ${{ steps.strings.outputs.vcpkg-dir }}/bootstrap-vcpkg.sh
     - name: Set CMake architecture flag (Windows only)
       if: matrix.os == 'windows-latest'
-      run: echo "CMAKE_ARCH=-A ${{ matrix.architecture }}" >> $GITHUB_ENV
+      run: echo "-A ${{ matrix.architecture }}" >> $GITHUB_ENV
 
     - name: Configure CMake
       run: >
