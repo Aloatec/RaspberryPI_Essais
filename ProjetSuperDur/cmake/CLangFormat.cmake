@@ -1,9 +1,11 @@
+ï»¿message(STATUS "ClangFormat.cmake bien inclus")
+
 function(add_clang_format_target target_name source_dirs)
   if(NOT CLANG_FORMAT_EXE)
     find_program(CLANG_FORMAT_EXE NAMES clang-format REQUIRED)
   endif()
 
-  # Collecter les sources de manière récursive
+  # Collecter les sources de maniÃ¨re rÃ©cursive
   set(PROJ_SOURCES "")
   foreach(dir IN LISTS source_dirs)
     file(GLOB_RECURSE TMP_SOURCES
@@ -16,7 +18,7 @@ function(add_clang_format_target target_name source_dirs)
     list(APPEND PROJ_SOURCES ${TMP_SOURCES})
   endforeach()
 
-  # Enlever les doublons éventuels
+  # Enlever les doublons Ã©ventuels
   list(REMOVE_DUPLICATES PROJ_SOURCES)
 
   set(STAMP_FILE ${CMAKE_CURRENT_BINARY_DIR}/.${target_name}.clang-format.stamp)

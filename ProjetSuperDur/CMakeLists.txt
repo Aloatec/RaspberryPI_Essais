@@ -3,8 +3,11 @@
 #
 cmake_minimum_required (VERSION 3.21)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-include(ClangFormat)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
+
+include(CLangFormat)
 
 #set(CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/lib")
@@ -56,7 +59,7 @@ add_custom_target(run-clang-format-all
 
 add_dependencies(ProjetSuperDurApp run-clang-format-all)
 
-set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER " ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
+set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER "${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
 
