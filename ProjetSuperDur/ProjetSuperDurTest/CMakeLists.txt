@@ -21,12 +21,12 @@ endif()
 
 target_link_libraries(ProjetSuperDurTest PRIVATE ProjetSuperDurDll)
 
-if(WIN32)
-    add_custom_command(TARGET ProjetSuperDurTest POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:ProjetSuperDurDll>
-        $<TARGET_FILE_DIR:ProjetSuperDurTest>)
-endif()
+#if(WIN32)
+#    add_custom_command(TARGET ProjetSuperDurTest POST_BUILD
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#        $<TARGET_FILE:ProjetSuperDurDll>
+#        $<TARGET_FILE_DIR:ProjetSuperDurTest>)
+#endif()
 
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 target_link_libraries(ProjetSuperDurTest PRIVATE Boost::unit_test_framework)
@@ -34,22 +34,6 @@ target_link_libraries(ProjetSuperDurTest PRIVATE Boost::unit_test_framework)
 add_test(NAME MesTests 
         COMMAND ProjetSuperDurTest --report_level=short --log_level=warning )
 
-file(GLOB_RECURSE PROJ_A_SOURCES
-  CONFIGURE_DEPENDS
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+add_clang_format_target(projet-super-dur-test
+  "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
-
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
-  COMMAND ${CLANG_FORMAT_EXE} -i -style=Microsoft ${PROJ_A_SOURCES}
-  COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
-  DEPENDS ${PROJ_A_SOURCES}
-  COMMENT "Clang-format test"
-)
-
-add_custom_target(run-clang-format-projet-super-dur-test
-  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/.clang-format.stamp
-)
-
-

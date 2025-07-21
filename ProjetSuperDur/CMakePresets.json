@@ -79,22 +79,24 @@
       }
     },
     {
-      "name": "macos-debug",
-      "displayName": "macOS Debug",
+      "name": "linux-release",
+      "displayName": "Linux Release",
+      "description": "Ciblez WSL (Sous-système Windows pour Linux) ou un système Linux distant.",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Release"
       },
+      "toolchainFile": "$env{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
-        "rhs": "Darwin"
+        "rhs": "Linux"
       },
       "vendor": {
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
+        "microsoft.com/VisualStudioRemoteSettings/CMake/2.0": {
+          "remoteSourceRootDir": "$env{HOME}/.vs/$ms{projectDirName}"
         }
       }
     }
