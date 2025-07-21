@@ -8,6 +8,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
 include(CLangFormat)
+include(CopyFolder)
 
 #set(CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/lib")
@@ -58,31 +59,9 @@ add_custom_target(run-clang-format-all
 )
 
 add_dependencies(ProjetSuperDurApp run-clang-format-all)
+add_dependencies(ProjetSuperDurTest run-clang-format-all)
+add_dependencies(ProjetSuperDurDll run-clang-format-all)
+add_dependencies(BoostPython run-clang-format-all)
 
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER "${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
-
-
-#set(CPPCHECK_DIRS
-#    ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll
-#    ${CMAKE_SOURCE_DIR}/ProjetSuperDurApp
-#    ${CMAKE_SOURCE_DIR}/ProjetSuperDurTest
-#    ${CMAKE_SOURCE_DIR}/BoostPython
-#    ${CMAKE_SOURCE_DIR}/BoostApplication
-#)
-#
-#
-## Création de la cible "run-cppcheck"
-#add_custom_target(run-cppcheck ALL
-#    COMMAND cppcheck
-#        --enable=style
-#        --inconclusive
-#        --std=c++20
-#        --force
-#        --suppress=missingInclude
-#        --suppress=missingIncludeSystem
-#        --quiet
-#        ${CPPCHECK_DIRS}
-#    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-#    COMMENT "Analyse statique avec cppcheck sur tous les sous-projets"
-#)

@@ -43,25 +43,7 @@ add_clang_format_target(boost-python
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-add_custom_command(TARGET BoostPython POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
-    COMMAND ${CMAKE_COMMAND} -E make_directory
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/BoostPython/scripts
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/scripts
-)
-
-#if(WIN32)
-#
-#    add_custom_command(TARGET BoostPython POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>  # Création dossier si absent
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_FILE:BoostPython> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurApp>
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_RUNTIME_DLLS:BoostPython> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurApp>
-#    COMMAND_EXPAND_LISTS)
-#
-#endif()
+post_build_copy(BoostPython 
+                ProjetSuperDurApp 
+                ${CMAKE_CURRENT_SOURCE_DIR}/scripts 
+                scripts)

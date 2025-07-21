@@ -26,46 +26,13 @@ endif()
 find_package(boost_locale REQUIRED CONFIG)
 target_link_libraries(ProjetSuperDurDll PRIVATE Boost::locale)
 
-
-#if(WIN32)
-#
-#    add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_FILE:ProjetSuperDurDll> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurApp>
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_RUNTIME_DLLS:ProjetSuperDurDll> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurApp>
-#    COMMAND_EXPAND_LISTS)
-#
-#endif()
-
 add_clang_format_target(projet-super-dur-dll
   "${CMAKE_CURRENT_SOURCE_DIR}/src"
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurApp>
-    COMMAND ${CMAKE_COMMAND} -E make_directory
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/locales
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/ProjetSuperDurDll/locales
-        $<TARGET_FILE_DIR:ProjetSuperDurApp>/locales
-)
-
-#if(WIN32)
-#
-#    add_custom_command(TARGET ProjetSuperDurDll POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:ProjetSuperDurTest>
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_FILE:ProjetSuperDurDll> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurTest>
-#    COMMAND ${CMAKE_COMMAND} -E copy 
-#    $<TARGET_RUNTIME_DLLS:ProjetSuperDurDll> 
-#    $<TARGET_FILE_DIR:ProjetSuperDurTest>
-#    COMMAND_EXPAND_LISTS)
-#
-#endif()
+post_build_copy(ProjetSuperDurDll 
+                ProjetSuperDurApp 
+                ${CMAKE_CURRENT_SOURCE_DIR}/locales 
+                locales)
 
