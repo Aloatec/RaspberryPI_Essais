@@ -122,6 +122,10 @@ jobs:
     - name: Set CMake architecture flag (Windows only)
       if: matrix.os == 'windows-latest'
       run: echo "CMAKE_ARCH=-A ${{ matrix.architecture }}" >> $GITHUB_ENV
+
+    - name: Debug CMake architecture flag
+      if: matrix.os == 'windows-latest'
+      run: echo "CMAKE_ARCH is ${{ env.CMAKE_ARCH }}"
       
     - name: Configure CMake
       run: >
