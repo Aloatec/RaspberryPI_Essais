@@ -120,11 +120,12 @@ jobs:
         ${{ steps.strings.outputs.vcpkg-dir }}/bootstrap-vcpkg.sh
 
     - name: Configure CMake
+      shell: bash
       run: >
         cmake -B "${{ steps.strings.outputs.build-output-dir }}"
         -S "${{ github.workspace }}/ProjetSuperDur"
         -G "${{ matrix.generator }}"
-         ${{ matrix.os == 'windows-latest' && format('-A {0}', matrix.architecture) || '' }}
+        ${{ matrix.os == 'windows-latest' && format('-A {0}', matrix.architecture) || '' }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.vcpkg-dir }}/scripts/buildsystems/vcpkg.cmake
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
