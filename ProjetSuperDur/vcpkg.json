@@ -5,6 +5,8 @@
     "boost-test",
     "boost-locale",
     "boost-log",
-    "boost-python"
+    "boost-python",
+    "boost-beast",
+    "boost-json"
   ]
 }

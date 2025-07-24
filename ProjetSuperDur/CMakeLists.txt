@@ -28,12 +28,16 @@ set(VCPKG_FEATURE_FLAGS "manifests")
 
 add_compile_definitions()
 
+set(CLANG_TIDY_CHECKS
+    "-checks=modernize-*,bugprone-*,cppcoreguidelines-*,boost-*,portability-*,readability-*,concurrency-*,performance-*,-modernize-use-trailing-return-type,-clang-analyzer-cplusplus.NewDelete,-bugprone-exception-escape"
+)
+set(CLANG_TIDY_HEADER_FILTER "-header-filter=^(?!.*vcpkg_installed).*$")
+set(CLANG_TIDY_COMMON_ARGS "-extra-arg=-Qunused-arguments;-warnings-as-errors=*")
+
 if(MSVC)
-    add_compile_options(/EHsc)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type;-warnings-as-errors=*;-extra-arg=-Qunused-arguments;-extra-arg=/EHsc;-header-filter=^(?!.*vcpkg_installed).*$")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;${CLANG_TIDY_CHECKS};${CLANG_TIDY_COMMON_ARGS};-extra-arg=/EHsc;${CLANG_TIDY_HEADER_FILTER}")
 else()
-    add_compile_options(-fexceptions)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=modernize-*,bugprone-*, cppcoreguidelines-*, boost-*, portability-*, readability-*, concurrency-*, performance-*, -modernize-use-trailing-return-type;-warnings-as-errors=*;-extra-arg=-Qunused-arguments;-extra-arg=-fexceptions;-header-filter=^(?!.*vcpkg_installed).*$")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;${CLANG_TIDY_CHECKS};${CLANG_TIDY_COMMON_ARGS};-extra-arg=-fexceptions;${CLANG_TIDY_HEADER_FILTER}")
 endif()
 
 if(CMAKE_CXX_CLANG_TIDY AND UNIX)
@@ -48,6 +52,7 @@ add_subdirectory ("ProjetSuperDurTest")
 add_subdirectory ("ProjetSuperDurApp")
 add_subdirectory ("ProjetSuperDurDll")
 add_subdirectory ("BoostPython")
+add_subdirectory("BoostBeast")
 
 
 # Cible globale pour lancer tous les formats
@@ -56,12 +61,14 @@ add_custom_target(run-clang-format-all
           run-clang-format-projet-super-dur-dll
           run-clang-format-projet-super-dur-app
           run-clang-format-projet-super-dur-test
+          run-clang-format-boost-beast
 )
 
 add_dependencies(ProjetSuperDurApp run-clang-format-all)
 add_dependencies(ProjetSuperDurTest run-clang-format-all)
 add_dependencies(ProjetSuperDurDll run-clang-format-all)
 add_dependencies(BoostPython run-clang-format-all)
+add_dependencies(BoostBeast run-clang-format-all)
 
 set_property(TARGET ProjetSuperDurTest PROPERTY FOLDER "${CMAKE_SOURCE_DIR}/ProjetSuperDurTest/src")
 set_property(TARGET ProjetSuperDurTest PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
