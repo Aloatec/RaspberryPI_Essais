@@ -77,11 +77,13 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/ProjetSuperDur/build" >> "$GITHUB_OUTPUT"
         echo "vcpkg-dir=${{ github.workspace }}/vcpkg" >> "$GITHUB_OUTPUT"
+        
     - name: Clang-Format check
       if: runner.os == 'Linux'
       run: |
         find ProjetSuperDur -type f \( -name "*.cpp" -o -name "*.hpp" \) | \
         xargs clang-format --dry-run --Werror -style=Microsoft
+        
     - name: Clang-Format check
       if: runner.os == 'Windows'
       run: |
@@ -104,6 +106,7 @@ jobs:
         autoconf automake libtool m4 pkg-config \
         libffi-dev libbz2-dev liblzma-dev libncurses5-dev \
         libreadline-dev libsqlite3-dev zlib1g-dev libssl-dev gettext clang-tidy autoconf-archive
+        
     - name: Installer Clang-tidy
       if: runner.os == 'Windows'
       run: choco install -y llvm
@@ -112,6 +115,10 @@ jobs:
       if: runner.os == 'Windows'
       uses: ilammy/msvc-dev-cmd@v1
 
+    - name: Authenticate private registries
+      shell: bash
+      run: git config --global credential.https://github.com/Aloatec.helper '!f() { echo username=unused; echo password=${{secrets.PRIVATE_ACCESS_TOKEN }}; }; f'
+    
     - name: Clone vcpkg
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
