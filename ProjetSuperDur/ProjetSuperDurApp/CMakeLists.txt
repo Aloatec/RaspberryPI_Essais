@@ -24,6 +24,13 @@ endif()
 target_link_libraries(ProjetSuperDurApp PRIVATE ProjetSuperDurDll)
 target_link_libraries(ProjetSuperDurApp PRIVATE BoostPython)
 
+message(STATUS "CMAKE_PREFIX_PATH = ${CMAKE_PREFIX_PATH}")
+message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
+
+find_package(SimpleLib CONFIG REQUIRED)
+target_link_libraries(ProjetSuperDurApp PRIVATE SimpleLib::SimpleLibDll)
+
+
 # TODO: Ajoutez des tests et installez des cibles si nécessaire.
 
 find_package(boost_log REQUIRED CONFIG)

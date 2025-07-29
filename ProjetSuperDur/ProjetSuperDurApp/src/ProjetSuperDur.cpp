@@ -3,6 +3,7 @@
 
 #include "ProjetSuperDur.h"
 #include "BoostPython.h"
+#include <SimpleLibDll.h>
 #include <boost/log/attributes/scoped_attribute.hpp>
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
@@ -28,7 +29,7 @@ void init_logging()
 
     // Sink pour moduleA
     auto sinkA = boost::make_shared<sinks::synchronous_sink<sinks::text_file_backend>>(
-        keywords::file_name = "moduleA.log", keywords::target_file_name = "moduleA%Y%m%d_%H%M%S_%5N.log");
+        keywords::file_name = "log/moduleA.log", keywords::target_file_name = "log/moduleA%Y%m%d_%H%M%S_%5N.log");
     sinkA->set_filter(expr::attr<std::string>("Channel") == "A");
     sinkA->set_formatter(expr::stream << "[" << expr::attr<boost::posix_time::ptime>("TimeStamp") << "] "
                                       << expr::smessage);
@@ -42,7 +43,7 @@ void init_logging()
 
     // Sink pour moduleB
     auto sinkB = boost::make_shared<sinks::synchronous_sink<sinks::text_file_backend>>(
-        keywords::file_name = "moduleB.log", keywords::target_file_name = "moduleB%Y%m%d_%H%M%S_%5N.log");
+        keywords::file_name = "log/moduleB.log", keywords::target_file_name = "log/moduleB%Y%m%d_%H%M%S_%5N.log");
     sinkB->set_filter(expr::attr<std::string>("Channel") == "B");
     sinkB->set_formatter(expr::stream << "[" << expr::attr<boost::posix_time::ptime>("TimeStamp") << "] "
                                       << expr::smessage);
@@ -63,7 +64,7 @@ void init_logging_2()
 
     // Sink pour moduleA
     auto sinkA = boost::make_shared<sinks::synchronous_sink<sinks::text_file_backend>>(
-        keywords::file_name = "moduleA2.log", keywords::target_file_name = "moduleA2%Y%m%d_%H%M%S_%5N.log");
+        keywords::file_name = "log/moduleA2.log", keywords::target_file_name = "log/moduleA2%Y%m%d_%H%M%S_%5N.log");
     sinkA->set_filter(expr::attr<Com>("Channel") == Com::A);
     sinkA->set_formatter(expr::stream << "[" << expr::attr<boost::posix_time::ptime>("TimeStamp") << "] "
                                       << expr::smessage);
@@ -77,7 +78,7 @@ void init_logging_2()
 
     // Sink pour moduleB
     auto sinkB = boost::make_shared<sinks::synchronous_sink<sinks::text_file_backend>>(
-        keywords::file_name = "moduleB2.log", keywords::target_file_name = "moduleB2%Y%m%d_%H%M%S_%5N.log");
+        keywords::file_name = "log/moduleB2.log", keywords::target_file_name = "log/moduleB2%Y%m%d_%H%M%S_%5N.log");
     sinkB->set_filter(expr::attr<Com>("Channel") == Com::B);
     sinkB->set_formatter(expr::stream << "[" << expr::attr<boost::posix_time::ptime>("TimeStamp") << "] "
                                       << expr::smessage);
@@ -99,11 +100,18 @@ inline const char *to_channel(Com Communication)
 
 int main()
 {
+    SimpleLib math = SimpleLib();
+
+    int result = math.add(1, 2);
+
+    cout << "Result of addition: " << result << '\n';
+
     try
     {
         cout << "Hello CMake." << '\n';
 
         test();
+
         // create_log();
 
         python_run();
@@ -117,24 +125,34 @@ int main()
     init_logging_2();
 
     //// Création de loggers avec un channel
-    // src::channel_logger<> loggerA(keywords::channel = "A");
+    src::channel_logger loggerA;
     // src::channel_logger<> loggerB(keywords::channel = to_channel(Com::B));
-    src::logger logger;
-
+    src::channel_logger logger;
+    const int nWaitSeconds = 100;
     while (true)
     {
         Com truc = Com::A;
-        BOOST_LOG_SCOPED_LOGGER_ATTR(logger, "Channel", boost::log::attributes::make_constant(truc));
-        BOOST_LOG(logger) << "Message pour A";
+        loggerA.add_attribute("Channel", boost::log::attributes::make_constant(truc));
+        BOOST_LOG(loggerA) << "Log dans A";
 
-        truc = Com::B;
-        BOOST_LOG_SCOPED_LOGGER_ATTR(logger, "Channel", boost::log::attributes::make_constant(truc));
-        BOOST_LOG(logger) << "Message pour B";
+        src::channel_logger logger;
+        Com communication = Com::A;
+        {
+            BOOST_LOG_SCOPED_LOGGER_ATTR(logger, "Channel", boost::log::attributes::make_constant(communication));
+            BOOST_LOG(logger) << "Message pour A";
+        }
 
-        // BOOST_LOG(loggerA) << "Log dans A";
-        // BOOST_LOG(loggerB) << "Log dans B";
+        communication = Com::B;
+        {
+            BOOST_LOG_SCOPED_LOGGER_ATTR(logger, "Channel", boost::log::attributes::make_constant(communication));
+            BOOST_LOG(logger) << "Message pour B";
+        }
 
-        const int nWaitSeconds = 100;
-        Sleep(nWaitSeconds); // Pause de 1 seconde
+        loggerA.add_attribute("Channel", boost::log::attributes::make_constant(truc));
+        BOOST_LOG(loggerA) << "Log dans B";
+        //{
+        //    BOOST_LOG_SCOPED_LOGGER_ATTR(logger, "Channel", boost::log::attributes::make_constant(truc));
+        //    BOOST_LOG(logger) << "Message pour B";
+        //}
     }
 }
