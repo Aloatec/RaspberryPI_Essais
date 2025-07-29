@@ -21,10 +21,10 @@ BOOST_FIXTURE_TEST_SUITE(Math2, Math2Init)
 
 BOOST_AUTO_TEST_CASE(Math_AdditionFonctionne)
 {
-    BOOST_CHECK_EQUAL(2 + 6, 7);
+    BOOST_CHECK_EQUAL(2 + 6, 8);
     BOOST_CHECK_EQUAL(test - 5, 5);
 
-    BOOST_TEST(2 + 6 == 7);
+    BOOST_TEST(2 + 5 == 7);
 }
 
 BOOST_AUTO_TEST_CASE(multiplication2)
